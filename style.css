@@ -1,0 +1,31 @@
+body{
+    text-align: center;
+}
+.calc-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.calc-border{
+    border-style: outset;
+    border-radius:1%;
+    border-color: black;
+}
+
+.result-screen{
+    height: 100px;
+    text-align: end;
+    font-size: 4rem;
+}
+.calc-btn{
+    display: flex;
+    flex-wrap: wrap;
+    height: 500px;
+    width: 500px;
+    background-color: aquamarine;
+}
+.calc-btn>button{
+    width: 125px;
+    font-size: 4rem;
+
+}
