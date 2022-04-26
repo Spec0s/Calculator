@@ -25,47 +25,55 @@ function divide(a, b) {
 //     }
 // }
 
-
+//                          Selected Numbers                        ////
 var btnSelected = ""
-// var btnDisplay = ""
+var clicked = false
 
 var resultScreen = document.querySelector(".result-screen")
 var numberClick = document.querySelectorAll(".number")
 numberClick.forEach(key => key.addEventListener('click', function (e) {
-    // btnSelected=e.target.innerHTML
-    resultScreen.textContent += e.target.innerHTML
-    // btnDisplay = resultScreen.innerHTML
-    btnSelected = resultScreen.innerHTML
+    btnSelected += e.target.innerHTML
+    resultScreen.textContent = btnSelected
+    console.log(btnSelected)
+    console.log(e.target.innerHTML)
+    console.log(resultScreen.innerHTML)
+    clicked=false
 }))
 
 var operatorClick = document.querySelectorAll(".operator")
 operatorClick.forEach(key => key.addEventListener('click', function (e) {
-    btnSelected = eval(btnSelected)
-    resultScreen.textContent = btnSelected
+    if(!clicked){
+btnSelected = eval(btnSelected)
+    resultScreen.textContent = Math.round(btnSelected*100)/100
     btnSelected = resultScreen.innerHTML
-    // btnSelected=e.target.innerHTML
-    resultScreen.textContent += e.target.attributes.alt.nodeValue
-    // btnDisplay = resultScreen.innerHTML
-    btnSelected = resultScreen.innerHTML
-
+    btnSelected += e.target.attributes.alt.nodeValue
+    console.log(btnSelected)
+    clicked=true
+    }
 }))
+
+var decimal = document.querySelectorAll(".btn-5")
+decimal.forEach(key => key.addEventListener('click', function (e) {
+    if(!clicked){
+        btnSelected += e.target.innerHTML
+        resultScreen.textContent = btnSelected
+    clicked=true
+    }
+}))
+
+
 
 var btnClear = document.querySelector(".btn-4")
 btnClear.addEventListener("click", function (e) {
-    // resultScreen.innerHTML.split("");
-    // resultScreen.innerHTML.splice(-1);
-    // var btnSelected=resultScreen.innerHTML.join("");
     resultScreen.textContent = ""
-    btnDisplay = ""
-    // var splitBtn=btnSelected.split("")
-    // console.log(btnSelected)
-    // var popped=splitBtn.pop();
-    // var btnSelected=popped.join("")
+    btnSelected = ""
 })
 
 var btnEvaluate = document.querySelector(".evaluate")
 btnEvaluate.addEventListener("click", function (e) {
     btnSelected = eval(btnSelected)
+    resultScreen.textContent = Math.round(btnSelected * 100) / 100
     resultScreen.textContent = btnSelected
-    btnSelected = resultScreen.innerHTML
+    btnSelected = ""
+    clicked=true
 })

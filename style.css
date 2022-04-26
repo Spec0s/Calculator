@@ -10,6 +10,7 @@ body{
     border-style: outset;
     border-radius:1%;
     border-color: black;
+    width: 500px;
 }
 
 .result-screen{
