@@ -1,32 +1,43 @@
-body{
+body {
     text-align: center;
 }
-.calc-body{
+
+.calc-body {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.calc-border{
+
+.calc-border {
     border-style: outset;
-    border-radius:1%;
+    border-radius: 1%;
     border-color: black;
     width: 500px;
 }
 
-.result-screen{
+.result-screen {
     height: 100px;
     text-align: end;
     font-size: 4rem;
 }
-.calc-btn{
+
+.calc-btn {
     display: flex;
     flex-wrap: wrap;
     height: 500px;
     width: 500px;
     background-color: aquamarine;
 }
-.calc-btn>button{
+
+.calc-btn>button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 125px;
     font-size: 4rem;
 
+}
+
+img {
+    width: 80px;
 }
