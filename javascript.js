@@ -21,7 +21,7 @@ var resultScreen = document.querySelector(".result-screen");
 var numberClick = document.querySelectorAll(".number");
 
 numberClick.forEach(key => key.addEventListener('click', function (e) {
-    btnSelected += Number(e.target.innerHTML)
+    btnSelected += e.target.innerHTML
     resultScreen.textContent = btnSelected
     // var btnArr=btnSelected.split("")
     // console.log(btnArr)
@@ -84,7 +84,7 @@ window.addEventListener('keypress', function (e) {
     if (!isNaN(e.key) && e.key !== " " && e.key !== undefined && e.key !== NaN) { //            number keydown
         if (clickedEval && clickedOperator) {
             if (e.repeat) { clickedDec = true }
-            btnSelected += Number(e.key);
+            btnSelected += e.key;
             clickedNumb = true;
             clickedDec = false;
             clickedOperator = false;
@@ -95,7 +95,7 @@ window.addEventListener('keypress', function (e) {
             btnSelected = ""
             resultScreen.textContent = ""
             if (e.repeat) { clickedDec = true }
-            btnSelected += Number(e.key)
+            btnSelected += e.key
             clickedNumb = true;
             clickedDec = false;
             clickedOperator = false;
@@ -103,7 +103,7 @@ window.addEventListener('keypress', function (e) {
             resultScreen.textContent = btnSelected
         } else if (clickedDec && !clickedOperator) {
             if (e.repeat) { clickedDec = true }
-            btnSelected += Number(e.key)
+            btnSelected += e.key
             clickedNumb = true;
             clickedDec = true;
             clickedOperator = false;
@@ -111,7 +111,7 @@ window.addEventListener('keypress', function (e) {
             resultScreen.textContent = btnSelected
         } else if (clickedDec && clickedOperator) {
             if (e.repeat) { clickedDec = true }
-            btnSelected += Number(e.key)
+            btnSelected += e.key
             clickedNumb = true;
             clickedDec = false;
             clickedOperator = false;
@@ -119,7 +119,7 @@ window.addEventListener('keypress', function (e) {
             resultScreen.textContent = btnSelected
         } else {
             if (e.repeat) { clickedDec = true }
-            btnSelected += Number(e.key)
+            btnSelected += e.key
             clickedNumb = true;
             clickedDec = false;
             clickedOperator = false;
@@ -146,11 +146,27 @@ window.addEventListener('keypress', function (e) {
         } else if (clickedNumb) {
             btnSelected = eval(btnSelected)
             btnSelected += e.key
+            if (btnSelected === "NaN" + e.key || btnSelected === "Infinity" + e.key) {
+                clickedNumb = false
+                clickedDec = false
+                clickedOperator = false
+                clickedEval = false
+                btnSelected = ""
+                resultScreen.textContent = btnSelected
+            }
             clickedNumb = false;
             clickedDec = true;
             clickedOperator = true;
             clickedEval = false;
             resultScreen.textContent = btnSelected
+        }
+        else if (clickedOperator) {
+            var splitStr = btnSelected.split("");
+            var splitArr = Array.from(splitStr);
+            splitArr.splice(-1, 1, e.key);
+            btnSelected = splitArr.join("");
+            resultScreen.textContent = btnSelected;
+
         }
     } else if (e.key === ".") { //             decimal keydown
         if (clickedEval && !clickedOperator && !clickedNumb && !clickedDec) {
@@ -171,14 +187,27 @@ window.addEventListener('keypress', function (e) {
     }
     else if (e.key === "Enter") { //             evaluate keydown
         if (!clickedEval && clickedNumb && !clickedOperator) {
+            e.preventDefault();
             console.log(btnSelected)
+            console.log(typeof(btnSelected))
             btnSelected = Math.round((eval(btnSelected)) * 100) / 100
             console.log(btnSelected)
+            console.log(typeof(btnSelected))
+            if (isNaN(btnSelected) || btnSelected === Infinity) {
+                clickedNumb = false
+                clickedDec = false
+                clickedOperator = false
+                clickedEval = false
+                btnSelected = ""
+                resultScreen.textContent = btnSelected
+            }
             clickedNumb = false
             clickedDec = false
             clickedOperator = false
             clickedEval = true
             resultScreen.textContent = btnSelected
+            console.log(btnSelected)
+            console.log(typeof(btnSelected))
         }
         // else if (clickedEval) {
         //     btnSelected = Math.pow(btnSelected, 2)
