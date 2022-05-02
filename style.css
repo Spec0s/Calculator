@@ -16,6 +16,9 @@ body {
 }
 
 .result-screen {
+    display: flex;
+    justify-content: end;
+    align-items: center;
     height: 100px;
     text-align: end;
     font-size: 4rem;

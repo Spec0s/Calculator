@@ -1,51 +1,183 @@
-                                                            //                          Click variables                 //
+//                          Click variables                 //
 var clickedNumb = false;
 var clickedDec = false;
 var clickedOperator = false;
 var clickedEval = false;
 var clickedBackSpace = false
 
-                                                        //                          Selected Numbers click                    //
+//                          Selected Numbers click                    //
 
 var btnSelected = "";
 var resultScreen = document.querySelector(".result-screen");
 var numberClick = document.querySelectorAll(".number");
 
 numberClick.forEach(key => key.addEventListener('click', function (e) {
-    btnSelected += e.target.innerHTML
-    resultScreen.textContent = btnSelected
+    var btnTarget = e.target.innerHTML
+    if (!isNaN(btnTarget) && btnTarget !== undefined && btnTarget !== NaN) {                                               // number keydown
+        if (clickedEval && clickedOperator) {
+            if (e.repeat) { clickedDec = true }
+            btnSelected += btnTarget;
+            clickedNumb = true;
+            clickedDec = false;
+            clickedOperator = false;
+            clickedEval = false;
+            clickedBackSpace = false
+            resultScreen.textContent = (btnSelected)
+        }
+        else if (clickedEval) {
+            btnSelected = ""
+            resultScreen.textContent = ""
+            if (e.repeat) { clickedDec = true }
+            btnSelected += btnTarget
+            clickedNumb = true;
+            clickedDec = false;
+            clickedOperator = false;
+            clickedEval = false;
+            clickedBackSpace = false
+            resultScreen.textContent = btnSelected
+        } else if (clickedDec && !clickedOperator) {
+            if (e.repeat) { clickedDec = true }
+            btnSelected += btnTarget
+            clickedNumb = true;
+            clickedDec = true;
+            clickedOperator = false;
+            clickedEval = false;
+            clickedBackSpace = false
+            resultScreen.textContent = btnSelected
+        } else if (clickedDec && clickedOperator) {
+            if (e.repeat) { clickedDec = true }
+            btnSelected += btnTarget
+            clickedNumb = true;
+            clickedDec = false;
+            clickedOperator = false;
+            clickedEval = false;
+            clickedBackSpace = false
+            resultScreen.textContent = btnSelected
+        } else {
+            if (e.repeat) { clickedDec = true }
+            btnSelected += btnTarget
+            clickedNumb = true;
+            clickedDec = false;
+            clickedOperator = false;
+            clickedEval = false;
+            clickedBackSpace = false
+            resultScreen.textContent = btnSelected
+        }
+
+    }
 }))
 
-                                                        //                      Selected Operators  click                //
+
+
+//                      Selected Operators  click                //
 
 var operatorClick = document.querySelectorAll(".operator")
-
 operatorClick.forEach(key => key.addEventListener('click', function (e) {
-    btnSelected = eval(btnSelected)
-    btnSelected += e.target.attributes.alt.nodeValue
-    resultScreen.textContent = btnSelected
+    var btnTarget = e.target.attributes.alt.nodeValue                                                  // operator keydown
+    if (!clickedEval && !clickedNumb && !clickedDec && !clickedOperator && btnTarget !== "*" && btnTarget !== "/" && btnTarget !== "+") {
+        btnSelected = 0 + btnTarget
+        clickedNumb = false;
+        clickedDec = true;
+        clickedOperator = true;
+        clickedEval = false;
+        clickedBackSpace = true;
+        resultScreen.textContent = btnSelected
+    } else if (clickedEval && !clickedNumb && !clickedDec) {
+        btnSelected += btnTarget
+        clickedNumb = false;
+        clickedDec = true;
+        clickedOperator = true;
+        clickedEval = false;
+        clickedBackSpace = true
+        resultScreen.textContent = btnSelected
+    } else if (clickedNumb) {
+        btnSelected = eval(btnSelected)
+        btnSelected += btnTarget
+        if (btnSelected === "NaN" + btnTarget || btnSelected === "Infinity" + btnTarget) {                       // Need to solve how to replace operator afte backspace !!!!!!!!!!!
+            clickedNumb = false
+            clickedDec = false
+            clickedOperator = false
+            clickedEval = false
+            clickedBackSpace = false
+            btnSelected = ""
+            resultScreen.textContent = btnSelected
+        }
+        clickedNumb = false;
+        clickedDec = true;
+        clickedOperator = true;
+        clickedEval = false;
+        clickedBackSpace = true;
+        resultScreen.textContent = btnSelected
+    }
+    else if (clickedOperator) {
+        var splitStr = btnSelected.split("");
+        var splitArr = Array.from(splitStr);
+        splitArr.splice(-1, 1, btnTarget);
+        btnSelected = splitArr.join("");
+        resultScreen.textContent = btnSelected;
+
+    }
 }))
 
-                                                            //                      Select decimal  click              //
+//                      Select decimal  click              //
 
 var decimal = document.querySelectorAll(".btn-5")
 
 decimal.forEach(key => key.addEventListener('click', function (e) {
-    btnSelected += e.target.innerHTML
-    resultScreen.textContent = btnSelected
+    var btnTarget = e.target.innerHTML
+    if (clickedEval && !clickedOperator && !clickedNumb && !clickedDec) {
+        btnSelected = 0 + btnTarget
+        clickedNumb = false;
+        clickedDec = true;
+        clickedOperator = true;
+        clickedEval = false;
+        clickedBackSpace = false;
+        resultScreen.textContent = btnSelected
+        console.log("decimal")
+    } else if (!clickedDec && !clickedOperator) {                                // Need to solve bug where after numerous click on . eval gives abnormal number !!!!!!!!!!
+        btnSelected += btnTarget;
+        clickedNumb = false;
+        clickedDec = true;
+        clickedOperator = false;
+        clickedEval = false;
+        clickedBackSpace = false
+        resultScreen.textContent = btnSelected;
+        console.log("decimal")
+    }
 }))
 
-                                                            //                      Evaluate button   click              //
+//                      Evaluate button   click              //
 
 var btnEvaluate = document.querySelector(".evaluate")
 
 btnEvaluate.addEventListener("click", function (e) {
-    btnSelected = eval(btnSelected)
-    resultScreen.textContent = Math.round(btnSelected * 100) / 100
-    btnSelected = ""
+    if (!clickedEval && clickedNumb && !clickedOperator) {
+        e.preventDefault();
+        console.log(btnSelected)
+        console.log(typeof (btnSelected))
+        btnSelected = Math.round((eval(btnSelected)) * 100) / 100
+        console.log(btnSelected)
+        console.log(typeof (btnSelected))
+        if (isNaN(btnSelected) || btnSelected === Infinity) {
+            clickedNumb = false
+            clickedDec = false
+            clickedOperator = false
+            clickedEval = false
+            clickedBackSpace = false
+            btnSelected = ""
+            resultScreen.textContent = btnSelected
+        }
+        clickedNumb = false
+        clickedDec = false
+        clickedOperator = false
+        clickedBackSpace = true
+        clickedEval = true
+        var evalSymbol = "="
+        resultScreen.textContent = evalSymbol + btnSelected
+    }
 })
 
-                                                                        //                  Backspace               //
+//                  Backspace               //
 
 var backSpace = document.querySelector(".btn-3")
 backSpace.addEventListener("click", function (e) {
@@ -53,13 +185,18 @@ backSpace.addEventListener("click", function (e) {
     if (!clickedBackSpace) {
         var splitStr = btnSelected.split("");
         var splitArr = Array.from(splitStr);
-        splitArr.splice(-1, 1);
-        btnSelected = splitArr.join("");
-        resultScreen.textContent = btnSelected;
+        var checkLast = splitArr.splice(-1, 1);
+        console.log(checkLast)
+        if (isNaN(checkLast)) {
+            return
+        } else {
+            btnSelected = splitArr.join("");
+            resultScreen.textContent = btnSelected;
+        }
     }
 });
 
-                                                            //                      Select clear button click            //
+//                      Select clear button click            //
 
 var btnClear = document.querySelector(".btn-4")
 
@@ -73,7 +210,7 @@ btnClear.addEventListener("click", function (e) {
 })
 
 
-                                                            //                      Keydown to use keypad           //
+//                      Keydown to use keypad           //
 
 
 
@@ -151,7 +288,7 @@ window.addEventListener('keydown', function (e) {
         } else if (clickedNumb) {
             btnSelected = eval(btnSelected)
             btnSelected += e.key
-            if (btnSelected === "NaN" + e.key || btnSelected === "Infinity" + e.key) {
+            if (btnSelected === "NaN" + e.key || btnSelected === "Infinity" + e.key) {                       // Need to solve how to replace operator afte backspace !!!!!!!!!!!
                 clickedNumb = false
                 clickedDec = false
                 clickedOperator = false
@@ -185,7 +322,7 @@ window.addEventListener('keydown', function (e) {
             clickedBackSpace = false;
             resultScreen.textContent = btnSelected
             console.log("decimal")
-        } else if (!clickedDec && !clickedOperator) {
+        } else if (!clickedDec && !clickedOperator) {                                // Need to solve bug where after numerous click on . eval gives abnormal number !!!!!!!!!!
             btnSelected += e.key;
             clickedNumb = false;
             clickedDec = true;
@@ -218,7 +355,8 @@ window.addEventListener('keydown', function (e) {
             clickedOperator = false
             clickedBackSpace = true
             clickedEval = true
-            resultScreen.textContent = "="+btnSelected
+            var evalSymbol = "="
+            resultScreen.textContent = evalSymbol + btnSelected
         }
         // else if (clickedEval) {
         //     btnSelected = Math.pow(btnSelected, 2)
