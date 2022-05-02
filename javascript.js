@@ -133,7 +133,6 @@ decimal.forEach(key => key.addEventListener('click', function (e) {
         clickedEval = false;
         clickedBackSpace = false;
         resultScreen.textContent = btnSelected
-        console.log("decimal")
     } else if (!clickedDec && !clickedOperator) {                                // Need to solve bug where after numerous click on . eval gives abnormal number !!!!!!!!!!
         btnSelected += btnTarget;
         clickedNumb = false;
@@ -142,7 +141,6 @@ decimal.forEach(key => key.addEventListener('click', function (e) {
         clickedEval = false;
         clickedBackSpace = false
         resultScreen.textContent = btnSelected;
-        console.log("decimal")
     }
 }))
 
@@ -153,11 +151,7 @@ var btnEvaluate = document.querySelector(".evaluate")
 btnEvaluate.addEventListener("click", function (e) {
     if (!clickedEval && clickedNumb && !clickedOperator) {
         e.preventDefault();
-        console.log(btnSelected)
-        console.log(typeof (btnSelected))
         btnSelected = Math.round((eval(btnSelected)) * 100) / 100
-        console.log(btnSelected)
-        console.log(typeof (btnSelected))
         if (isNaN(btnSelected) || btnSelected === Infinity) {
             clickedNumb = false
             clickedDec = false
@@ -181,12 +175,10 @@ btnEvaluate.addEventListener("click", function (e) {
 
 var backSpace = document.querySelector(".btn-3")
 backSpace.addEventListener("click", function (e) {
-    console.log(e)
     if (!clickedBackSpace) {
         var splitStr = btnSelected.split("");
         var splitArr = Array.from(splitStr);
         var checkLast = splitArr.splice(-1, 1);
-        console.log(checkLast)
         if (isNaN(checkLast)) {
             return
         } else {
@@ -321,7 +313,6 @@ window.addEventListener('keydown', function (e) {
             clickedEval = false;
             clickedBackSpace = false;
             resultScreen.textContent = btnSelected
-            console.log("decimal")
         } else if (!clickedDec && !clickedOperator) {                                // Need to solve bug where after numerous click on . eval gives abnormal number !!!!!!!!!!
             btnSelected += e.key;
             clickedNumb = false;
@@ -330,17 +321,12 @@ window.addEventListener('keydown', function (e) {
             clickedEval = false;
             clickedBackSpace = false
             resultScreen.textContent = btnSelected;
-            console.log("decimal")
         }
     }
     else if (e.key === "Enter") {                                                                                                         // evaluate keydown
         if (!clickedEval && clickedNumb && !clickedOperator) {
             e.preventDefault();
-            console.log(btnSelected)
-            console.log(typeof (btnSelected))
             btnSelected = Math.round((eval(btnSelected)) * 100) / 100
-            console.log(btnSelected)
-            console.log(typeof (btnSelected))
             if (isNaN(btnSelected) || btnSelected === Infinity) {
                 clickedNumb = false
                 clickedDec = false
@@ -367,7 +353,6 @@ window.addEventListener('keydown', function (e) {
         var splitStr = btnSelected.split("");
         var splitArr = Array.from(splitStr);
         var checkLast = splitArr.splice(-1, 1);
-        console.log(checkLast)
         if (isNaN(checkLast)) {
             return
         } else {
