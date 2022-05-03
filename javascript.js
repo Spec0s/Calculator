@@ -4,64 +4,198 @@ var clickedDec = false;
 var clickedOperator = false;
 var clickedEval = false;
 var clickedBackSpace = false
+var click = 0;
 
-//                          Selected Numbers click                    //
+//                          Variables                            //
 
-var btnSelected = "";
+var btnSelected = [];
+var operatorSelected = [""];
 var resultScreen = document.querySelector(".result-screen");
 var numberClick = document.querySelectorAll(".number");
 
+//                          Evaluate function                   //
+function multiply(a, b) {
+    return a * b
+}
+function add(a, b) {
+    return a + b
+}
+function divide(a, b) {
+    return a / b
+}
+function substract(a, b) {
+    return a - b
+}
+
+function calculate(a, b) {
+    if (operatorSelected == "+") {
+        return a + b
+    } else if (operatorSelected == "-") {
+        return substract(a, b)
+    } else if (operatorSelected == "/") {
+        return divide(a, b)
+    } else if (operatorSelected == "*") {
+        return multiply(a, b)
+    }
+
+}
+function evaluate(str) {
+    return str.reduce(calculate)
+}
+
+//                          Selected Numbers click                    //
+
+
+
 numberClick.forEach(key => key.addEventListener('click', function (e) {
+    click++
     var btnTarget = e.target.innerHTML
     if (!isNaN(btnTarget) && btnTarget !== undefined && btnTarget !== NaN) {                                               // number keydown
         if (clickedEval && clickedOperator) {
-            if (e.repeat) { clickedDec = true }
-            btnSelected += btnTarget;
+            if (operatorSelected == "+" || operatorSelected == "-" || operatorSelected == "*" || operatorSelected == "/") {
+                if (click > 1) {
+                    btnSelected[1] += btnTarget
+                    resultScreen.textContent = btnSelected[1]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[1]
+                }
+            } else {
+                if (click > 1) {
+                    btnSelected[0] += btnTarget
+                    resultScreen.textContent = btnSelected[0]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[0]
+                }
+            }
+            if (e.repeat) {
+                clickedDec = true
+            }
+            // btnSelected += btnTarget;
             clickedNumb = true;
             clickedDec = false;
             clickedOperator = false;
             clickedEval = false;
             clickedBackSpace = false
-            resultScreen.textContent = (btnSelected)
+            // resultScreen.textContent = btnSelected
         }
         else if (clickedEval) {
-            btnSelected = ""
+            btnSelected = []
             resultScreen.textContent = ""
-            if (e.repeat) { clickedDec = true }
-            btnSelected += btnTarget
+            if (operatorSelected == "+" || operatorSelected == "-" || operatorSelected == "*" || operatorSelected == "/") {
+                if (click > 1) {
+                    btnSelected[1] += btnTarget
+                    resultScreen.textContent = btnSelected[1]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[1]
+                }
+            } else {
+                
+                if (click > 1) {
+                    btnSelected[0] += btnTarget
+                    resultScreen.textContent = btnSelected[0]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[0]
+                }
+            }
+            if (e.repeat) {
+                clickedDec = true
+            }
+            // btnSelected += btnTarget
             clickedNumb = true;
             clickedDec = false;
             clickedOperator = false;
             clickedEval = false;
             clickedBackSpace = false
-            resultScreen.textContent = btnSelected
+            // resultScreen.textContent = btnSelected
         } else if (clickedDec && !clickedOperator) {
-            if (e.repeat) { clickedDec = true }
-            btnSelected += btnTarget
+            if (operatorSelected == "+" || operatorSelected == "-" || operatorSelected == "*" || operatorSelected == "/") {
+                if (click > 1) {
+                    btnSelected[1] += btnTarget
+                    resultScreen.textContent = btnSelected[1]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[1]
+                }
+            } else {
+                if (click > 1) {
+                    btnSelected[0] += btnTarget
+                    resultScreen.textContent = btnSelected[0]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[0]
+                }
+            }
+            if (e.repeat) {
+                clickedDec = true
+            }
+            // btnSelected += btnTarget
             clickedNumb = true;
             clickedDec = true;
             clickedOperator = false;
             clickedEval = false;
             clickedBackSpace = false
-            resultScreen.textContent = btnSelected
+            // resultScreen.textContent = btnSelected
         } else if (clickedDec && clickedOperator) {
-            if (e.repeat) { clickedDec = true }
-            btnSelected += btnTarget
+            if (operatorSelected == "+" || operatorSelected == "-" || operatorSelected == "*" || operatorSelected == "/") {
+                if (click > 1) {
+                    btnSelected[1] += btnTarget
+                    resultScreen.textContent = btnSelected[1]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[1]
+                }
+            } else {
+                if (click > 1) {
+                    btnSelected[0] += btnTarget
+                    resultScreen.textContent = btnSelected[0]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[0]
+                }
+            }
+            if (e.repeat) {
+                clickedDec = true
+            }
+            // btnSelected += btnTarget
             clickedNumb = true;
             clickedDec = false;
             clickedOperator = false;
             clickedEval = false;
             clickedBackSpace = false
-            resultScreen.textContent = btnSelected
+            // resultScreen.textContent = btnSelected
         } else {
-            if (e.repeat) { clickedDec = true }
-            btnSelected += btnTarget
+            if (e.repeat) {
+                clickedDec = true
+            }
+            if (operatorSelected == "+" || operatorSelected == "-" || operatorSelected == "*" || operatorSelected == "/") {
+                if (click > 1) {
+                    btnSelected[1] += btnTarget
+                    resultScreen.textContent = btnSelected[1]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[1]
+                }
+            } else {
+                if (click > 1) {
+                    btnSelected[0] += btnTarget
+                    resultScreen.textContent = btnSelected[0]
+                } else {
+                    btnSelected.push(btnTarget)
+                    resultScreen.textContent = btnSelected[0]
+                }
+            }
+
+            // btnSelected += btnTarget
             clickedNumb = true;
             clickedDec = false;
             clickedOperator = false;
             clickedEval = false;
             clickedBackSpace = false
-            resultScreen.textContent = btnSelected
+            console.log(btnSelected)
         }
 
     }
@@ -81,7 +215,7 @@ operatorClick.forEach(key => key.addEventListener('click', function (e) {
         clickedOperator = true;
         clickedEval = false;
         clickedBackSpace = true;
-        resultScreen.textContent = btnSelected
+        // resultScreen.textContent = btnSelected
     } else if (clickedEval && !clickedNumb && !clickedDec) {
         btnSelected += btnTarget
         clickedNumb = false;
@@ -89,32 +223,43 @@ operatorClick.forEach(key => key.addEventListener('click', function (e) {
         clickedOperator = true;
         clickedEval = false;
         clickedBackSpace = true
-        resultScreen.textContent = btnSelected
+        // resultScreen.textContent = btnSelected
     } else if (clickedNumb) {
-        btnSelected = eval(btnSelected)
-        btnSelected += btnTarget
-        if (btnSelected === "NaN" + btnTarget || btnSelected === "Infinity" + btnTarget) {                       // Need to solve how to replace operator afte backspace !!!!!!!!!!!
-            clickedNumb = false
-            clickedDec = false
-            clickedOperator = false
-            clickedEval = false
-            clickedBackSpace = false
-            btnSelected = ""
-            resultScreen.textContent = btnSelected
+        // btnSelected = eval(btnSelected)
+        // btnSelected += btnTarget
+        // if (btnSelected === "NaN" + btnTarget || btnSelected === "Infinity" + btnTarget) {                       // Need to solve how to replace operator afte backspace !!!!!!!!!!!
+        //     clickedNumb = false
+        //     clickedDec = false
+        //     clickedOperator = false
+        //     clickedEval = false
+        //     clickedBackSpace = false
+        //     btnSelected = ""
+        //     resultScreen.textContent = btnSelected
+        // }
+        btnSelected = btnSelected.map(function (x) { 
+            return parseInt(x); 
+          });
+        if (btnSelected.lenght > 1) {
+            btnSelected = evaluate(btnSelected)
         }
+        click = 0
+        operatorSelected = btnTarget
+        console.log(operatorSelected)
         clickedNumb = false;
         clickedDec = true;
         clickedOperator = true;
         clickedEval = false;
         clickedBackSpace = true;
-        resultScreen.textContent = btnSelected
+        // resultScreen.textContent = btnSelected
     }
     else if (clickedOperator) {
-        var splitStr = btnSelected.split("");
-        var splitArr = Array.from(splitStr);
-        splitArr.splice(-1, 1, btnTarget);
-        btnSelected = splitArr.join("");
-        resultScreen.textContent = btnSelected;
+        operatorSelected = btnTarget
+        // var splitStr = btnSelected.split("");
+        // var splitArr = Array.from(splitStr);
+        // splitArr.splice(-1, 1, btnTarget);
+        // btnSelected = splitArr.join("");
+        // resultScreen.textContent = btnSelected;
+        console.log(operatorSelected)
 
     }
 }))
@@ -150,15 +295,19 @@ var btnEvaluate = document.querySelector(".evaluate")
 
 btnEvaluate.addEventListener("click", function (e) {
     if (!clickedEval && clickedNumb && !clickedOperator) {
-        e.preventDefault();
-        btnSelected = Math.round((eval(btnSelected)) * 100) / 100
+        // btnSelected = Math.round((eval(btnSelected)) * 100) / 100
+        btnSelected = btnSelected.map(function (x) { 
+            return parseInt(x, 10); 
+          });
+        btnSelected=evaluate(btnSelected)
         if (isNaN(btnSelected) || btnSelected === Infinity) {
             clickedNumb = false
             clickedDec = false
             clickedOperator = false
             clickedEval = false
             clickedBackSpace = false
-            btnSelected = ""
+            btnSelected = []
+            operatorSelected=""
             resultScreen.textContent = btnSelected
         }
         clickedNumb = false
@@ -166,6 +315,8 @@ btnEvaluate.addEventListener("click", function (e) {
         clickedOperator = false
         clickedBackSpace = true
         clickedEval = true
+        operatorSelected=""
+        click=0
         var evalSymbol = "="
         resultScreen.textContent = evalSymbol + btnSelected
     }
@@ -197,7 +348,7 @@ btnClear.addEventListener("click", function (e) {
     clickedDec = false
     clickedOperator = false
     clickedEval = false
-    btnSelected = ""
+    btnSelected = []
     resultScreen.textContent = btnSelected
 })
 
