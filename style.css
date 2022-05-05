@@ -23,6 +23,15 @@ body {
     text-align: end;
     font-size: 4rem;
 }
+.operation-screen{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 25px;
+    text-align: end;
+    font-size: 1rem;
+    color:#696969;
+}
 
 .calc-btn {
     display: flex;
