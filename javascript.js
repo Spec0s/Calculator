@@ -18,13 +18,13 @@ var operationScreen = document.querySelector(".operation-screen")
 //                          Evaluate function                   //
 function calculate(a, b) {
     if (operatorSelected == "+") {
-        return (parseInt(a*100)+parseInt(b*100))/100
+        return (Math.round(a * 100) + Math.round(b * 100)) / 100
     } else if (operatorSelected == "-") {
-        return (parseInt(a*100)-parseInt(b*100))/100
+        return (Math.round(a * 100) - Math.round(b * 100)) / 100
     } else if (operatorSelected == "/") {
-        return Math.round((a/b)*100)/100
+        return Math.round((a / b) * 100) / 100
     } else if (operatorSelected == "*") {
-        return Math.round((a*b)*100)/100
+        return Math.round((a * b) * 100) / 100
     }
 
 }
@@ -35,8 +35,8 @@ function evaluate(str) {
 //                          operation display function                  //
 
 function screenDisp() {
-    if (btnSelected[0] !== undefined&&clickedEval) {
-        operationScreen.textContent = "="+btnSelected[0]
+    if (btnSelected[0] !== undefined && clickedEval) {
+        operationScreen.textContent = "=" + btnSelected[0]
     }
     else if (btnSelected[0] !== undefined && operatorSelected !== undefined && btnSelected[1] !== undefined) {
         operationScreen.textContent = btnSelected[0] + operatorSelected + btnSelected[1]
@@ -121,11 +121,10 @@ numberClick.forEach(key => key.addEventListener('click', function (e) {
             clickedEval = false;
             clickedBackSpace = false
         } else if (clickedDec && clickedOperator) {
-            if (btnSelected == "0.") {
+            if (btnSelected == "0." || btnSelected == "-") {
                 btnSelected[0] += btnTarget
                 resultScreen.textContent = btnSelected[0]
-            }
-            else if (operatorSelected == "+" || operatorSelected == "-" || operatorSelected == "*" || operatorSelected == "/") {
+            } else if (operatorSelected == "+" || operatorSelected == "-" || operatorSelected == "*" || operatorSelected == "/") {
                 if (click >= 1) {
                     btnSelected[1] += btnTarget
                     resultScreen.textContent = btnSelected[1]
