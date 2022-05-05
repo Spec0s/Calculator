@@ -18,13 +18,13 @@ var operationScreen = document.querySelector(".operation-screen")
 //                          Evaluate function                   //
 function calculate(a, b) {
     if (operatorSelected == "+") {
-        return ((a*10000)+(b*10000))/10000
+        return (parseInt(a*100)+parseInt(b*100))/100
     } else if (operatorSelected == "-") {
-        return ((a*10000)-(b*10000))/10000
+        return (parseInt(a*100)-parseInt(b*100))/100
     } else if (operatorSelected == "/") {
-        return ((a*10000)/(b*10000))/10000
+        return Math.round((a/b)*100)/100
     } else if (operatorSelected == "*") {
-        return ((a*10000)*(b*10000))/10000
+        return Math.round((a*b)*100)/100
     }
 
 }
