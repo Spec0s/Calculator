@@ -1,4 +1,4 @@
-//                          Click variables                 //
+// ---------------------------------------------------------                          Click variables                  ---------------------------------------------------------//
 var clickedNumb = false;
 var clickedDec = false;
 var clickedOperator = false;
@@ -7,7 +7,7 @@ var clickedBackSpace = false
 var click = 0;
 var decCount = 0;
 
-//                          Variables                            //
+// ---------------------------------------------------------                          Variables                             ---------------------------------------------------------//
 
 var btnSelected = [];
 var operatorSelected = [];
@@ -15,7 +15,7 @@ var resultScreen = document.querySelector(".result-screen");
 var numberClick = document.querySelectorAll(".number");
 var operationScreen = document.querySelector(".operation-screen")
 
-//                          Evaluate function                   //
+// ---------------------------------------------------------                          Evaluate function                    ---------------------------------------------------------//
 function calculate(a, b) {
     if (operatorSelected == "+") {
         return (Math.round(a * 100) + Math.round(b * 100)) / 100
@@ -32,7 +32,7 @@ function evaluate(str) {
     return btnSelected = [str.reduce(calculate)]
 }
 
-//                          operation display function                  //
+// ---------------------------------------------------------                         operation display function                 ---------------------------------------------------------//
 
 function screenDisp() {
     if (btnSelected[0] !== undefined && clickedEval) {
@@ -47,8 +47,8 @@ function screenDisp() {
     }
 }
 
-//                          number select function                      //
-function numberSelect(btnTarget) {
+//---------------------------------------------------------                          number logic function                       ---------------------------------------------------------//
+function numberLogic(btnTarget) {
     if (!isNaN(btnTarget) && btnTarget !== undefined && btnTarget !== NaN) {
         if (clickedEval && clickedOperator) {
             if (operatorSelected == "+" || operatorSelected == "-" || operatorSelected == "*" || operatorSelected == "/") {
@@ -171,9 +171,9 @@ function numberSelect(btnTarget) {
     }
 }
 
-//                          Operator Select function                    //
+//---------------------------------------------------------                          Operator logic function                    ---------------------------------------------------------//
 
-function operatorSelect(btnTarget) {
+function operatorLogic(btnTarget) {
     if (!clickedEval && !clickedNumb && !clickedDec && !clickedOperator && btnTarget !== "*" && btnTarget !== "/" && btnTarget !== "+") {
         btnSelected[0] = btnTarget
         clickedNumb = false;
@@ -215,9 +215,9 @@ function operatorSelect(btnTarget) {
     }
 }
 
-//                             Decimal click function                   //
+//---------------------------------------------------------                             Decimal logic function                   ---------------------------------------------------------//
 
-function decimalClick(btnTarget) {
+function decimalLogic(btnTarget) {
     if (clickedEval && !clickedOperator && !clickedNumb && !clickedDec && decCount < 1) {
         decCount = 1;
         btnSelected = []
@@ -253,7 +253,7 @@ function decimalClick(btnTarget) {
     }
 }
 
-//                             Evaluate logic function                        //
+//---------------------------------------------------------                             Evaluate logic function                        ---------------------------------------------------------//
 
 function evaluateLogic(btnTarget){
     if (!clickedEval && clickedNumb && !clickedOperator) {
@@ -284,7 +284,7 @@ function evaluateLogic(btnTarget){
     }
 }
 
-//                          Backspace function                          //
+//---------------------------------------------------------                          Backspace logic function                          ---------------------------------------------------------//
 
 function backspaceLogic(btnTarget){
     if (!clickedBackSpace) {
@@ -332,7 +332,7 @@ function backspaceLogic(btnTarget){
     }
 }
 
-//                           Clear function                           //
+//---------------------------------------------------------                           Clear  logic function                           ---------------------------------------------------------//
 
 function clearLogic(){
     clickedNumb = false;
@@ -348,52 +348,52 @@ function clearLogic(){
     screenDisp()
 }
 
-//                          Selected Numbers click                    //
+//---------------------------------------------------------                          Selected Numbers click                    ---------------------------------------------------------//
 
 numberClick.forEach(key => key.addEventListener('click', function (e) {
     var btnTarget = e.target.innerHTML
-    numberSelect(btnTarget)
+    numberLogic(btnTarget)
     click++
     screenDisp()
 }))
 
-//                      Selected Operators  click                //
+//---------------------------------------------------------                      Selected Operators  click                ---------------------------------------------------------//
 
 var operatorClick = document.querySelectorAll(".operator")
 operatorClick.forEach(key => key.addEventListener('click', function (e) {
     var btnTarget = e.target.attributes.alt.nodeValue
-    operatorSelect(btnTarget)
+    operatorLogic(btnTarget)
     screenDisp()
 }))
 
-//                      Select decimal  click              //
+//---------------------------------------------------------                      Select decimal click              ---------------------------------------------------------//
 
 var decimal = document.querySelectorAll(".btn-5")
 decimal.forEach(key => key.addEventListener('click', function (e) {
     var btnTarget = e.target.innerHTML
-    decimalClick(btnTarget)
+    decimalLogic(btnTarget)
     screenDisp()
 }))
 
-//                      Evaluate button   click              //
+//---------------------------------------------------------                      Select Evaluate click              ---------------------------------------------------------//
 
 var btnEvaluate = document.querySelector(".evaluate")
 
 btnEvaluate.addEventListener("click", function (e) {
-    evaluateLogic(btnTarget)
+    evaluateLogic()
     screenDisp()
 })
 
-//                  Backspace               //
+//---------------------------------------------------------                  Select Backspace click              ---------------------------------------------------------//
 
 var backSpace = document.querySelector(".btn-3")
 backSpace.addEventListener("click", function (e) {
-    backspaceLogic(btnTarget)
+    backspaceLogic()
     screenDisp()
 }
 );
 
-//                      Select clear button click            //
+//---------------------------------------------------------                      Select clear click            ---------------------------------------------------------//
 
 var btnClear = document.querySelector(".btn-4")
 
@@ -402,29 +402,28 @@ btnClear.addEventListener("click", function (e) {
 })
 
 
-//                      Keydown to use keypad           //
+//---------------------------------------------------------                      Keydown to use keyboard         ---------------------------------------------------------//
 
 
 
 window.addEventListener('keydown', function (e) {
-    console.log(e)
     var btnTarget = e.key
-    if (!isNaN(e.key) && e.key !== " " && e.key !== undefined && e.key !== NaN) {                                               // number keydown
-        numberSelect(btnTarget)
+    if (!isNaN(e.key) && e.key !== " " && e.key !== undefined && e.key !== NaN) {//--------------------------------------------------------- number keydown
+        numberLogic(btnTarget)
         click++
     }
-    else if ((e.key == "*" || e.key == "/" || e.key == "+" || e.key == "-") && e.key) {                                                   // operator keydown
-        operatorSelect(btnTarget)
-    } else if (e.key === ".") {                                                                                                             // decimal keydown
-        decimalClick(btnTarget)
+    else if ((e.key == "*" || e.key == "/" || e.key == "+" || e.key == "-") && e.key) {//--------------------------------------------------------- operator keydown
+        operatorLogic(btnTarget)
+    } else if (e.key === ".") {                                                        //--------------------------------------------------------- decimal keydown
+        decimalLogic(btnTarget)
     }
-    else if (e.key === "Enter") {                                                                                                         // evaluate keydown
-        evaluateLogic(btnTarget)
+    else if (e.key === "Enter") {                                                     //--------------------------------------------------------- evaluate keydown
+        evaluateLogic()
     }
-    else if (e.key === "Backspace") {                                                                                               // Keydown backspace
-        backspaceLogic(btnTarget)
+    else if (e.key === "Backspace") {                                                //--------------------------------------------------------- Keydown backspace
+        backspaceLogic()
     }
-    else if (e.key === "Escape") {                                                                                                     // Keydown Escape
+    else if (e.key === "Escape") {                                                   //--------------------------------------------------------- Keydown Escape
         clearLogic()
     }
     screenDisp()
