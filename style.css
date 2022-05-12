@@ -4,60 +4,71 @@ body {
 
 .calc-body {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0 auto;
+    max-width: 515px;
 }
 
 .calc-border {
     border-style: outset;
+    border-width: 0.5rem;
     border-radius: 1%;
     border-color: black;
-    width: 500px;
+
+}
+
+.screens {
+    background-color: lightgray;
+    min-height: 94px;
 }
 
 .result-screen {
     display: flex;
     justify-content: end;
-    align-items: center;
-    height: 100px;
-    text-align: end;
+    min-height: 75px; 
     font-size: 4rem;
 }
-.operation-screen{
+
+.operation-screen {
     display: flex;
     justify-content: end;
-    align-items: center;
-    height: 25px;
-    text-align: end;
+    min-height: 19px;
     font-size: 1rem;
     color:#696969;
 }
 
 .calc-btn {
+    padding-top: 10px;
     display: flex;
     flex-wrap: wrap;
-    height: 500px;
-    width: 500px;    
+    flex-shrink: inherit;
+    background-color: black;
+
 }
 
-.calc-btn>button {
+.btn-row-4>button {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 125px;
+    margin: 5px;
+    width: 115px;
+    height: 80px;
     font-size: 4rem;
     border-radius: 1%;
 }
 
-img {
-    width: 80px;
+.btn-row-4 {
+    display: flex;
 }
 
-.operator,.evaluate,.btn-5,.btn-3,.btn-4,.btn-1,.btn-2{
+img {
+    max-width: 100%;
+}
+
+.operator, .evaluate, .btn-5, .btn-3, .btn-4, .btn-1, .btn-2 {
     background-color: #696969;
 }
 
-.number{
+.number {
     color: aliceblue;
     background-color: grey;
 }
